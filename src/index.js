@@ -35,7 +35,27 @@ odometerReverse = function(array) {
 }
 
 const odometerVariableRadix = function(array, radix) {
-  return
+  const carryNumber = parseInt(10, radix) - 1
+  let addOne = true
+
+   for (let i = array.length; i--; i > -1) {
+    let digit = parseInt(array[i], radix)
+
+     if (digit === carryNumber && addOne) {
+      array[i] = 0
+      addOne = true
+    } else if (addOne) {
+      array[i] = digit += 1
+      addOne = false
+    }
+
+		//convert back to base characters
+		if (array[i] > 9){
+			array[i] = Number(digit).toString(radix).toUpperCase()
+		}
+  }
+
+   return array
 }
 
 module.exports = { odometer, odometerReverse, odometerVariableRadix };
