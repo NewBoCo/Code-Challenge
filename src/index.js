@@ -19,7 +19,7 @@ odometer = function(array) {
 odometerReverse = function(array) {
   let minusOne = true
 
-  for (let i = array.length; i--; i > -1) {
+  for (let i = array.length - 1; i > -1; i--) {
     let digit = array[i]
 
     if (digit === 0 && minusOne) {
@@ -34,4 +34,8 @@ odometerReverse = function(array) {
   return array
 }
 
-module.exports = { odometer, odometerReverse };
+const odometerVariableRadix = function(array, radix) {
+  return
+}
+
+module.exports = { odometer, odometerReverse, odometerVariableRadix };
