@@ -34,20 +34,28 @@ describe("Odometer reverse function", function() {
 describe("Odometer radix agnostic function", function() {
   const hexadecimalCases = [
     {input: [4, 3, 9, 3], output: [4, 3, 9, 4], radix: 16},
-    {input: [4, 3, 4, 9], output: [4, 3, 4, "A"], radix: 16},
-    {input: [4, 3, 0, "A"], output: [4, 3, 0, "B"], radix: 16},
-    {input: [3, 9, 0, "F"], output: [3, 9, 1, 0], radix: 16},
-    {input: [3, 9, 9, "F"], output: [3, 9, "A", 0], radix: 16},
-    {input: [3, 9, "A", "F"], output: [3, 9, "B", 0], radix: 16},
-    {input: [3, 0, "F", "F"], output: [3, 1, 0, 0], radix: 16},
-    {input: [3, 9, "F", "F"], output: [3, "A", 0, 0], radix: 16},
-    {input: [3, "A", "F", "F"], output: [3, "B", 0, 0], radix: 16},
-    {input: [0, "F", "F", "F"], output: [1, 0, 0, 0], radix: 16},
-    {input: [9, "F", "F", "F"], output: ["A", 0, 0, 0], radix: 16},
-    {input: ["A", "F", "F", "F"], output: ["B", 0, 0, 0], radix: 16},
-    {input: ["F", "F", "F", "F"], output: [0, 0, 0, 0], radix: 16},
+    {input: ["4", "3", "9", "3"], output: ["4", "3", "9", "4"], radix: 16},
+    {input: ["4", "3", "4", "9"], output: ["4", "3", "4", "A"], radix: 16},
+    {input: ["4", "3", "0", "A"], output: ["4", "3", "0", "B"], radix: 16},
+    {input: ["3", "9", "0", "F"], output: ["3", "9", "1", "0"], radix: 16},
+    {input: ["3", "9", "9", "F"], output: ["3", "9", "A", "0"], radix: 16},
+    {input: ["3", "9", "A", "F"], output: ["3", "9", "B", "0"], radix: 16},
+    {input: ["3", "0", "F", "F"], output: ["3", "1", "0", "0"], radix: 16},
+    {input: ["3", "9", "F", "F"], output: ["3", "A", "0", "0"], radix: 16},
+    {input: ["3", "A", "F", "F"], output: ["3", "B", "0", "0"], radix: 16},
+    {input: ["0", "F", "F", "F"], output: ["1", "0", "0", "0"], radix: 16},
+    {input: ["9", "F", "F", "F"], output: ["A", "0", "0", "0"], radix: 16},
+    {input: ["A", "F", "F", "F"], output: ["B", "0", "0", "0"], radix: 16},
+    {input: ["F", "F", "F", "F"], output: ["0", "0", "0", "0"], radix: 16},
   ]
   itParam("should increment array 'number' given a radix of 16", hexadecimalCases, function({input, output, radix}) {
+    let result = odometerVariableRadix(input, radix)
+    expect(result).to.eql(output)
+  })
+
+  const specialCase = {input: [4, 3, 4, 9], output: ["4", "3", "4", "A"], radix: 16}
+  it("should return string values if not all values can be parsed as integers", function() {
+    const { input, output, radix } = specialCase
     let result = odometerVariableRadix(input, radix)
     expect(result).to.eql(output)
   })
